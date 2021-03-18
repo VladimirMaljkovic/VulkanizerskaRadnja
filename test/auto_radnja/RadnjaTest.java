@@ -81,5 +81,16 @@ public abstract class RadnjaTest {
 		assertEquals(null, radnja.pronadjiGumu(null));
 		
 	}
+	
+	@Test
+	@DisplayName("PronadjiGumu - Ne postoji trazena")
+	void testPronadjiGumuNePostoji() {
+		AutoGuma a = new AutoGuma("abc", 15, 150, 50);
+		
+		radnja.dodajGumu(a);
+		
+		assertEquals(0, radnja.pronadjiGumu("bac").size());
+		
+	}
 
 }
