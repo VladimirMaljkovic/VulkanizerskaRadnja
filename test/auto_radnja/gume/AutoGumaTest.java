@@ -64,120 +64,71 @@ class AutoGumaTest {
 
 	
 
-	// setPrecnik
-
-	@DisplayName("SetPrecnik - normalna vrednost")
-	@Test
-	void testSetPrecnik() {
-		a1.setPrecnik(15);
-		assertEquals(15, a1.getPrecnik());
-	}
-
-	@DisplayName("SetPrecnik - preniska vrednost")
-	@Test
-	void testSetPrecnikIspod() {
-		assertThrows(java.lang.RuntimeException.class,
-				() -> a1.setPrecnik(10));
-	}
-
-	@DisplayName("SetPrecnik - previsoka vrednost")
-	@Test
-	void testSetPrecnikIznad() {
-		assertThrows(java.lang.RuntimeException.class,
-				() -> a1.setPrecnik(30));
-	}
-	
-	
-	// setSirina
-
-		@DisplayName("SetSirina - normalna vrednost")
-		@Test
-		void testSetSirina() {
-			a1.setSirina(200);
-			assertEquals(200, a1.getSirina());
-		}
-
-		@DisplayName("SetSirina - preniska vrednost")
-		@Test
-		void testSetSirinaIspod() {
-			assertThrows(java.lang.RuntimeException.class,
-					() -> a1.setSirina(100));
-		}
-
-		@DisplayName("SetSirina - previsoka vrednost")
-		@Test
-		void testSetSirinaIznad() {
-			assertThrows(java.lang.RuntimeException.class,
-					() -> a1.setSirina(400));
-		}
-
-	// setVisina
-
-	@DisplayName("SetVisina - normalna vrednost")
-	@Test
-	void testSetVisina() {
-		a1.setVisina(50);
-		assertEquals(50, a1.getVisina());
-	}
-
-	@DisplayName("SetVisina - preniska vrednost")
-	@Test
-	void testSetVisinaIspod() {
-		assertThrows(java.lang.RuntimeException.class,
-				() -> a1.setVisina(10));
-	}
-
-	@DisplayName("SetVisina - previsoka vrednost")
-	@Test
-	void testSetVisinaIznad() {
-		assertThrows(java.lang.RuntimeException.class,
-				() -> a1.setVisina(100));
-	}
-
-	
-	// precnik (13-22), sirina(135-355), visina(25-95)
-
-	@ParameterizedTest
-	@DisplayName("SetPrecnik - parametrizovani")
-	@CsvSource({
-		"10, false",
-		"15, true",
-		"30, false"
-	})
-	void testSetPrecnik(int precnik, boolean eq)
-	{
-		boolean rule;
-		rule = (precnik > 13 && precnik < 22);
-		assertEquals(rule, eq);
-	}
+	// setPrecnik (13-22)
 	
 	@ParameterizedTest
-	@DisplayName("SetVisina - parametrizovani")
+	@DisplayName("SetPrecnik - dobra vrednost")
 	@CsvSource({
-		"100, false",
-		"200, true",
-		"400, false"
+		"13", "14", "16", "18", "20", "21", "22"
 	})
-	void testSetSirina(int sirina, boolean eq)
-	{
-		boolean rule;
-		rule = (sirina > 135 && sirina < 355);
-		assertEquals(rule, eq);
+	void testSetPrecnikOk(int precnik) {
+		a1.setPrecnik(precnik);
+		assertEquals(precnik, a1.getPrecnik());
+	}
+
+	@ParameterizedTest
+	@DisplayName("SetPrecnik - losa vrednost")
+	@CsvSource({
+		"-1", "0", "10", "12", "23", "25", "100"
+	})
+	void testSetPrecnikNotOk(int precnik) {
+		assertThrows(java.lang.RuntimeException.class,
+				() -> a1.setPrecnik(precnik));
 	}
 	
 	
+	// setSirina (135-355)
+
 	@ParameterizedTest
-	@DisplayName("SetSirina - parametrizovani")
+	@DisplayName("SetSirina - dobra vrednost")
 	@CsvSource({
-		"10, false",
-		"50, true",
-		"100, false"
+		"135", "185", "200", "355"
 	})
-	void testSetVisina(int visina, boolean eq)
-	{
-		boolean rule;
-		rule = (visina > 25 && visina < 95);
-		assertEquals(rule, eq);
+	void testSetSirinaOk(int sirina) {
+		a1.setSirina(sirina);
+		assertEquals(sirina, a1.getSirina());
+	}
+
+	@ParameterizedTest
+	@DisplayName("SetSirina - losa vrednost")
+	@CsvSource({
+		"-100", "134", "356", "1000"
+	})
+	void testSetSirinaNotOk(int sirina) {
+		assertThrows(java.lang.RuntimeException.class,
+				() -> a1.setSirina(sirina));
+	}
+
+	// setVisina (25-95)
+
+	@ParameterizedTest
+	@DisplayName("SetVisina - dobra vrednost")
+	@CsvSource({
+		"25", "40", "80", "95"
+	})
+	void testSetVisinaOk(int visina) {
+		a1.setVisina(visina);
+		assertEquals(visina, a1.getVisina());
+	}
+
+	@ParameterizedTest
+	@DisplayName("SetVisina - losa vrednost")
+	@CsvSource({
+		"-100", "24", "96", "1000"
+	})
+	void testSetVisinaNotOk(int visina) {
+		assertThrows(java.lang.RuntimeException.class,
+				() -> a1.setVisina(visina));
 	}
 	
 	
